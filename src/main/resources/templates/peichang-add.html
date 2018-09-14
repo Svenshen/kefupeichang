@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="zh-CN">
+<head th:replace="common::commonHeader('主页')">
+</head>
+<body>
+    <div th:include="common::commonNav"></div>
+    <div class="container">
+        <form method="post" th:action="@{/peichang/add}" class="form-horizontal" enctype="multipart/form-data" onkeydown="if(event.keyCode==13){return false;}">
+            <div class="form-group">
+                <label style="font-size: 12px;color: red" class="col-sm-2 control-label"  ></label>
+                <div class="col-sm-4">
+                    <label style="font-size: 12px;color: red" class="control-label" th:text="${msg}" ></label>
+                </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="col-sm-2 control-label" >邮件号</label>
+              <div class="col-sm-4 ">
+                <input type="text" class="form-control"  name="mailno" th:value="${peichangmail!=null}?${peichangmail.mailno}" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="col-sm-2 control-label">寄件人姓名</label>
+              <div class="col-sm-4 ">
+                <input type="text" class="form-control"  name="jijianrenxingming" th:value="${peichangmail!=null}?${peichangmail.jijianrenxingming}">
+              </div>
+              <label for="exampleInputPassword1" class="col-sm-2 control-label">寄件人电话</label>
+              <div class="col-sm-4 ">
+                <input type="text" class="form-control"  name="jijianrendianhua" th:value="${peichangmail!=null}?${peichangmail.jijianrendianhua}" onKeyUp="value=value.replace(/[^\d|chun]/g,'')">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="col-sm-2 control-label">寄件人地址</label>
+              <div class="col-sm-10 ">
+                <input type="text" class="form-control"  name="jijianrendizhi" th:value="${peichangmail!=null}?${peichangmail.jijianrendizhi}">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="col-sm-2 control-label">收件人姓名</label>
+              <div class="col-sm-4 ">
+                <input type="text" class="form-control"  name="shoujianrenxingming" th:value="${peichangmail!=null}?${peichangmail.shoujianrenxingming}">
+              </div>
+              <label for="exampleInputPassword1" class="col-sm-2 control-label">收件人电话</label>
+              <div class="col-sm-4 ">
+                <input type="text" class="form-control"  name="shoujianrendianhua" th:value="${peichangmail!=null}?${peichangmail.shoujianrendianhua}" onKeyUp="value=value.replace(/[^\d|chun]/g,'')">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="col-sm-2 control-label">收件人地址</label>
+              <div class="col-sm-10 ">
+                <input type="text" class="form-control"  name="shoujianrendizhi" th:value="${peichangmail!=null}?${peichangmail.shoujianrendizhi}">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="col-sm-2 control-label" >邮件价值</label>
+              <div class="col-sm-4 ">
+                <input type="number" min="0" step="0.01" class="form-control"  name="youjianjiazhi"  th:value="${peichangmail!=null}?${peichangmail.youjianjiazhi}">
+              </div>
+              <label for="exampleInputPassword1" class="col-sm-2 control-label" >索赔金额</label>
+              <div class="col-sm-4 ">
+                <input type="number" min="0" step="0.01" class="form-control"  name="suopeijine" th:value="${peichangmail!=null}?${peichangmail.suopeijine}">
+              </div>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputFile" class="col-sm-2 control-label">照片1</label>
+                <div class="col-sm-10 ">
+                    <input type="file"  name="zhaopian1" accept="image/jpeg" ></input>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFile" class="col-sm-2 control-label">照片2</label>
+                <div class="col-sm-10 ">
+                    <input type="file"  name="zhaopian2" accept="image/jpeg" ></input>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFile" class="col-sm-2 control-label">照片3</label>
+                <div class="col-sm-10 ">
+                    <input type="file"  name="zhaopian3" accept="image/jpeg" ></input>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFile" class="col-sm-2 control-label">照片4</label>
+                <div class="col-sm-10 ">
+                    <input type="file"  name="zhaopian4" accept="image/jpeg" ></input>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFile" class="col-sm-2 control-label">照片5</label>
+                <div class="col-sm-10 ">
+                    <input type="file"  name="zhaopian5" accept="image/jpeg" ></input>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFile" class="col-sm-2 control-label"></label>
+                <div class="col-sm-2 ">
+                    <button type="submit" class="btn btn-primary btn-block">提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div th:include="common::commonFooter"></div>
+</body>
+</html>

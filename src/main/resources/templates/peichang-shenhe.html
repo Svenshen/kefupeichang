@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="zh-CN">
+<head th:replace="common::commonHeader('主页')">
+</head>
+<body>
+    <div th:include="common::commonNav"></div>
+    <div class="container">
+        <form class="form-horizontal" onkeydown="if(event.keyCode==13){return false;}" name="form1" method="post">
+            <div class="form-group">
+                <label style="font-size: 12px;color: red" class="col-sm-2 control-label"  ></label>
+                <div class="col-sm-4">
+                    <label style="font-size: 12px;color: red" class="control-label" th:text="${msg}" ></label>
+                </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="col-sm-2 control-label" >邮件号</label>
+              <div class="col-sm-4 ">
+                <input type="text" class="form-control" id="exampleInputEmail1" name="mailno" th:value="${peichangmail!=null}?${peichangmail.mailno}" onKeyUp="value=value.replace(/[^\d|chun]/g,'')" readonly>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="col-sm-2 control-label">寄件人姓名</label>
+              <div class="col-sm-4 ">
+                <input type="text" class="form-control" id="exampleInputPassword1" name="jijianrenxingming" th:value="${peichangmail!=null}?${peichangmail.jijianrenxingming}" readonly>
+              </div>
+              <label for="exampleInputPassword1" class="col-sm-2 control-label">寄件人电话</label>
+              <div class="col-sm-4 ">
+                <input type="text" class="form-control" id="exampleInputPassword1" name="jijianrendianhua" th:value="${peichangmail!=null}?${peichangmail.jijianrendianhua}" onKeyUp="value=value.replace(/[^\d|chun]/g,'')" readonly>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="col-sm-2 control-label">寄件人地址</label>
+              <div class="col-sm-10 ">
+                <input type="text" class="form-control" id="exampleInputPassword1" name="jijianrendizhi" th:value="${peichangmail!=null}?${peichangmail.jijianrendizhi}" readonly>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="col-sm-2 control-label">收件人姓名</label>
+              <div class="col-sm-4 ">
+                <input type="text" class="form-control" id="exampleInputPassword1" name="shoujianrenxingming" th:value="${peichangmail!=null}?${peichangmail.shoujianrenxingming}" readonly>
+              </div>
+              <label for="exampleInputPassword1" class="col-sm-2 control-label">收件人电话</label>
+              <div class="col-sm-4 ">
+                <input type="text" class="form-control" id="exampleInputPassword1" name="shoujianrendianhua" th:value="${peichangmail!=null}?${peichangmail.shoujianrendianhua}" onKeyUp="value=value.replace(/[^\d|chun]/g,'')" readonly>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="col-sm-2 control-label">收件人地址</label>
+              <div class="col-sm-10 ">
+                <input type="text" class="form-control" id="exampleInputPassword1" name="shoujianrendizhi" th:value="${peichangmail!=null}?${peichangmail.shoujianrendizhi}" readonly>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="col-sm-2 control-label" >邮件价值</label>
+              <div class="col-sm-4 ">
+                <input type="number" min="0" step="0.01" class="form-control" id="exampleInputPassword1" name="youjianjiazhi"  th:value="${peichangmail!=null}?${peichangmail.youjianjiazhi}" readonly>
+              </div>
+              <label for="exampleInputPassword1" class="col-sm-2 control-label" >索赔金额</label>
+              <div class="col-sm-4 ">
+                <input type="number" min="0" step="0.01" class="form-control" id="exampleInputPassword1" name="suopeijine" th:value="${peichangmail!=null}?${peichangmail.suopeijine}" readonly>
+              </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFile" class="col-sm-2 control-label">允许销毁</label>
+                <div class="col-sm-2 ">
+                    <!--<input type="text" class="form-control" id="exampleInputPassword1" name="yunxuxiaohui" th:value="${peichangmail!=null}?(${peichangmail.yunxuxiaohui!=null}?(${peichangmail.yunxuxiaohui}?'是':'否'))" th:readonly="${peichangmail}?false:${peichangmail.zhuangtai!=30}">-->
+                    <input type="text" class="form-control" id="exampleInputPassword1" th:value="${peichangmail!=null}?(${peichangmail.yunxuxiaohui!=null}?(${peichangmail.yunxuxiaohui}?'是':'否'))" readonly>
+                </div>
+                <label for="exampleInputFile" class="col-sm-2 control-label">实际赔偿</label>
+                <div class="col-sm-2 ">
+                    <input type="text" class="form-control" id="exampleInputPassword1" th:value="${peichangmail!=null}?${peichangmail.shijipeichang}" readonly>
+                </div>
+                <label for="exampleInputFile" class="col-sm-2 control-label">是否已收回</label>
+                <div class="col-sm-2 ">
+                    <input type="text" class="form-control" id="exampleInputPassword1"  th:value="${peichangmail!=null}?(${peichangmail.isshouhui!=null}?(${peichangmail.isshouhui}?'是':'否'))" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFile" class="col-sm-2 control-label">照片1</label>
+                <div class="col-sm-10 ">
+                    <img th:src="@{/images/{mailno}/0.jpg(mailno=${peichangmail!=null}?${peichangmail.mailno})}" alt="照片1" class="img-rounded" width="800px"></img>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFile" class="col-sm-2 control-label">照片2</label>
+                <div class="col-sm-10 ">
+                    <img th:src="@{/images/{mailno}/1.jpg(mailno=${peichangmail!=null}?${peichangmail.mailno})}" alt="照片2" class="img-rounded" width="800px"></img>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFile" class="col-sm-2 control-label">照片3</label>
+                <div class="col-sm-10 ">
+                    <img th:src="@{/images/{mailno}/2.jpg(mailno=${peichangmail!=null}?${peichangmail.mailno})}" alt="照片3" class="img-rounded" width="800px"></img>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFile" class="col-sm-2 control-label">照片4</label>
+                <div class="col-sm-10 ">
+                    <img th:src="@{/images/{mailno}/3.jpg(mailno=${peichangmail!=null}?${peichangmail.mailno})}" alt="照片4" class="img-rounded" width="800px"></img>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFile" class="col-sm-2 control-label">照片5</label>
+                <div class="col-sm-10 ">
+                    <img th:src="@{/images/{mailno}/4.jpg(mailno=${peichangmail!=null}?${peichangmail.mailno})}" alt="照片5" class="img-rounded" width="800px"></img>
+                </div>
+            </div>
+            
+            
+            <div class="form-group">
+                <label for="exampleInputFile" class="col-sm-2 control-label">审核记录</label>
+
+            </div>
+
+            <table class="table table-striped table-hover " >
+                <thead>
+                    <tr>
+                        <th>部门</th>
+                        <th>人员</th>
+                        <th>状态</th>
+                        <th>意见</th>
+                        <th>时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="peichangmaillog : ${peichangmailloglist}">
+                        <td th:text="${peichangmaillog.bumen}"></td>
+                        <td th:text="${peichangmaillog.name}"></td>
+                        <td th:text="${peichangmaillog.zhuangtai}?'通过':'退回'"></td>
+                        <td th:text="${peichangmaillog.yijian}"></td>
+                        <td th:text="${peichangmaillog.shijian}"></td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <div class="form-group">
+                <label for="exampleInputPassword1" class="col-sm-1 control-label">审核意见</label>
+                <div class="col-sm-11 ">
+                    <textarea class="form-control" rows="3" name="yijian"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group" th:if="${peichangmail==null}?false:${peichangmail.zhuangtai==30}">
+                <label for="exampleInputPassword1" class="col-sm-1 control-label">允许销毁</label>
+                <div class="col-sm-11 ">
+                    <select class="form-control" name="yunxuxiaohui">
+                        <option value="true">是</option>
+                        <option value="false">否</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputFile" class="col-sm-2 control-label"></label>
+                <div class="col-sm-2 ">
+                    <button type="button" class="btn btn-success btn-block" onclick="accept();">通过</button>
+                </div>
+                <div class="col-sm-2 "></div>
+                <div class="col-sm-2 ">
+                    <button type="button" class="btn btn-danger btn-block" onclick="reject();">退回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div th:include="common::commonFooter"></div>
+    <script> 
+        function accept() 
+        { 
+            document.form1.action="[[@{/peichang/shenhe/accept}]]"; //testForm为form表单的name
+            document.form1.submit();
+        } 
+        function reject() 
+        { 
+            document.form1.action="[[@{/peichang/shenhe/reject}]]"; 
+            document.form1.submit();
+        } 
+    </script>
+</body>
+</html>

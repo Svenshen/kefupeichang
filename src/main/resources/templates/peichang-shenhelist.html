@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="zh-CN">
+<head th:replace="common::commonHeader('主页')">
+</head>
+<body>
+    <div th:include="common::commonNav"></div>
+    <div class="container">
+        <table class="table table-striped table-hover " >
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>邮件号</th>
+                    <th>用户</th>
+                    <th>部门</th>
+                    <th>时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="peichangmail,peichangmailstat : ${peichangmaillist}">
+                    <td th:text="${peichangmailstat.count}"></td>
+                    <td><a th:href="@{/peichang/shenhe/{mailno}(mailno=${peichangmail.mailno})}" th:text="${peichangmail.mailno}" ></a></td>
+                    <td th:text="${peichangmail.name}"></td>
+                    <td th:text="${peichangmail.bumen}"></td>
+                    <td th:text="${peichangmail.shijian}"></td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+    <div th:include="common::commonFooter"></div>
+</body>
+</html>
