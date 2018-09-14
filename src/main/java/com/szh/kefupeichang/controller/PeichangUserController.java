@@ -43,7 +43,7 @@ public class PeichangUserController {
     public ModelAndView changePassowrd(ModelAndView modelAndView,@RequestParam("password1") String password1,@RequestParam("password2") String password2){
         Subject subject = SecurityUtils.getSubject();
         PeichangUser user = (PeichangUser)subject.getPrincipal();
-        modelAndView.addObject("name",user.getName());
+        modelAndView.addObject("user",user);
         System.out.println("changepassword:"+password1+","+password2);
         if(password1 == null || password1.isEmpty() || password2 == null || password2.isEmpty()){
             modelAndView.addObject("msg", "密码不符合规范，请更换密码");
@@ -67,7 +67,7 @@ public class PeichangUserController {
     public ModelAndView changePassowrd(ModelAndView modelAndView){
         Subject subject = SecurityUtils.getSubject();
         PeichangUser user = (PeichangUser)subject.getPrincipal();
-        modelAndView.addObject("name",user.getName());
+        modelAndView.addObject("user",user);
         modelAndView.setViewName(changepasswordhtml);
         return modelAndView;
     }    

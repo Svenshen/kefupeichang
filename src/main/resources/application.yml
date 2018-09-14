@@ -1,6 +1,8 @@
 ## YAML Template.
 ---
 spring:
+    jmx:
+        default-domain: kefupeichang
     # jdbc_config   datasource
     datasource:
         url: jdbc:sqlserver://192.168.10.150:1433;DatabaseName=kefu
@@ -13,7 +15,7 @@ spring:
         maximum-pool-size: 500
         auto-commit: true
         idle-timeout: 30000
-        hikari.pool-name: DatebookHikariCP
+        hikari.pool-name: kefupeichang
         max-lifetime: 1800000
         connection-timeout: 30000
         connection-test-query: SELECT 1

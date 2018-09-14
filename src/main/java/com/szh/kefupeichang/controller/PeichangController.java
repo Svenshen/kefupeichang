@@ -75,7 +75,7 @@ public class PeichangController {
     public ModelAndView chaxun(ModelAndView modelAndView){
         Subject subject = SecurityUtils.getSubject();
         PeichangUser user = (PeichangUser)subject.getPrincipal();
-        modelAndView.addObject("name",user.getName());
+        modelAndView.addObject("user",user);
         modelAndView.setViewName(chaxunhtmllist);
         List<PeichangMail> list = new ArrayList();
         if(user.getQuanxian() <= 10){
@@ -95,7 +95,7 @@ public class PeichangController {
             @PathVariable("mailno")  String mailno){
         Subject subject = SecurityUtils.getSubject();
         PeichangUser user = (PeichangUser)subject.getPrincipal();
-        modelAndView.addObject("name",user.getName());
+        modelAndView.addObject("user",user);
         modelAndView.setViewName(chaxunhtml);
         PeichangMail peichangMail = peichangMailService.findByMailno(mailno);
         List<PeichangMaillog> peichangMailloglist = peichangMaillogService.findByMailno(mailno);
@@ -113,7 +113,7 @@ public class PeichangController {
     public ModelAndView tuihui(ModelAndView modelAndView){
         Subject subject = SecurityUtils.getSubject();
         PeichangUser user = (PeichangUser)subject.getPrincipal();
-        modelAndView.addObject("name",user.getName());
+        modelAndView.addObject("user",user);
         modelAndView.setViewName(tuihuihtmllist);
         List<PeichangMail> list = peichangMailService.findByZhuangtaiAndBumen(user.getQuanxian(),user.getBumen());
         if(!list.isEmpty() ){
@@ -128,7 +128,7 @@ public class PeichangController {
             @PathVariable("mailno")  String mailno){
         Subject subject = SecurityUtils.getSubject();
         PeichangUser user = (PeichangUser)subject.getPrincipal();
-        modelAndView.addObject("name",user.getName());
+        modelAndView.addObject("user",user);
         modelAndView.setViewName(tuihuihtml);
         PeichangMail peichangMail = peichangMailService.findByMailno(mailno);
         List<PeichangMaillog> peichangMailloglist = peichangMaillogService.findByMailno(mailno);
@@ -152,8 +152,7 @@ public class PeichangController {
     ){
         Subject subject = SecurityUtils.getSubject();
         PeichangUser user = (PeichangUser)subject.getPrincipal();
-        modelAndView.addObject("name",user.getName());
-        modelAndView.addObject("bumen",user.getBumen());
+        modelAndView.addObject("user",user);
         modelAndView.setViewName(tuihuihtml);
         if (bindingResult.hasErrors()) {
             List<ObjectError>  list = bindingResult.getAllErrors();
@@ -218,7 +217,7 @@ public class PeichangController {
     public ModelAndView add(ModelAndView modelAndView){
         Subject subject = SecurityUtils.getSubject();
         PeichangUser user = (PeichangUser)subject.getPrincipal();
-        modelAndView.addObject("name",user.getName());
+        modelAndView.addObject("user",user);
         modelAndView.setViewName(addhtml);
         return modelAndView;
     }   
@@ -244,8 +243,7 @@ public class PeichangController {
     ){
         Subject subject = SecurityUtils.getSubject();
         PeichangUser user = (PeichangUser)subject.getPrincipal();
-        modelAndView.addObject("name",user.getName());
-        modelAndView.addObject("bumen",user.getBumen());
+        modelAndView.addObject("user",user);
         modelAndView.setViewName(addhtml);
         if (bindingResult.hasErrors()) {
             List<ObjectError>  list = bindingResult.getAllErrors();
@@ -309,7 +307,7 @@ public class PeichangController {
     public ModelAndView shenhelist(ModelAndView modelAndView){
         Subject subject = SecurityUtils.getSubject();
         PeichangUser user = (PeichangUser)subject.getPrincipal();
-        modelAndView.addObject("name",user.getName());
+        modelAndView.addObject("user",user);
         modelAndView.setViewName(shenhelisthtml);
         List<PeichangMail> list = peichangMailService.findByZhuangtai(user.getQuanxian());
         if(!list.isEmpty() ){
@@ -330,7 +328,7 @@ public class PeichangController {
             @PathVariable("mailno")  String mailno){
         Subject subject = SecurityUtils.getSubject();
         PeichangUser user = (PeichangUser)subject.getPrincipal();
-        modelAndView.addObject("name",user.getName());
+        modelAndView.addObject("user",user);
         modelAndView.setViewName(shenhehtml);
         PeichangMail peichangMail = peichangMailService.findByMailno(mailno);
         List<PeichangMaillog> peichangMailloglist = peichangMaillogService.findByMailno(mailno);
@@ -359,7 +357,7 @@ public class PeichangController {
         
         Subject subject = SecurityUtils.getSubject();
         PeichangUser user = (PeichangUser)subject.getPrincipal();
-        modelAndView.addObject("name",user.getName());
+        modelAndView.addObject("user",user);
         modelAndView.setViewName(shenhelisthtml);
         PeichangMail peichangMail = peichangMailService.findByMailno(mailno);
         System.out.println(yunxuxiaohui);
@@ -401,7 +399,7 @@ public class PeichangController {
             ){
         Subject subject = SecurityUtils.getSubject();
         PeichangUser user = (PeichangUser)subject.getPrincipal();
-        modelAndView.addObject("name",user.getName());
+        modelAndView.addObject("user",user);
         modelAndView.setViewName(shenhelisthtml);
         PeichangMail peichangMail = peichangMailService.findByMailno(mailno);
         
@@ -421,6 +419,7 @@ public class PeichangController {
                 maillog.setShijian(new Date());
                 maillog.setBumen(user.getBumen());
                 peichangMailService.reject(peichangMail,maillog);
+                shenhelist(modelAndView);
             }
         }
         
@@ -431,7 +430,7 @@ public class PeichangController {
     public ModelAndView fankuilist(ModelAndView modelAndView){
         Subject subject = SecurityUtils.getSubject();
         PeichangUser user = (PeichangUser)subject.getPrincipal();
-        modelAndView.addObject("name",user.getName());
+        modelAndView.addObject("user",user);
         modelAndView.setViewName(fankuilisthtml);
         int quanxian = user.getQuanxian();
         if(user.getQuanxian() == 30){
@@ -450,7 +449,7 @@ public class PeichangController {
             @PathVariable("mailno")  String mailno){
         Subject subject = SecurityUtils.getSubject();
         PeichangUser user = (PeichangUser)subject.getPrincipal();
-        modelAndView.addObject("name",user.getName());
+        modelAndView.addObject("user",user);
         modelAndView.setViewName(fankuihtml);
         PeichangMail peichangMail = peichangMailService.findByMailno(mailno);
         List<PeichangMaillog> peichangMailloglist = peichangMaillogService.findByMailno(mailno);
@@ -472,7 +471,7 @@ public class PeichangController {
         
         Subject subject = SecurityUtils.getSubject();
         PeichangUser user = (PeichangUser)subject.getPrincipal();
-        modelAndView.addObject("name",user.getName());
+        modelAndView.addObject("user",user);
         modelAndView.setViewName(fankuilisthtml);
         PeichangMail peichangMail = peichangMailService.findByMailno(mailno);
         //System.out.println(yunxuxiaohui);
