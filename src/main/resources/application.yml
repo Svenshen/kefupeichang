@@ -5,10 +5,10 @@ spring:
         default-domain: kefupeichang
     # jdbc_config   datasource
     datasource:
-        url: jdbc:sqlserver://192.168.10.150:1433;DatabaseName=kefu
-        username: sa
-        password: Emswjdb2018
-        driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+        url: jdbc:mysql://localhost:3306/kefu?useSSL=false&serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
+        username: root
+        password: 63559627
+        driver-class-name: com.mysql.jdbc.Driver
         # Hikari will use the above plus the following to setup connection pooling
         type: com.zaxxer.hikari.HikariDataSource
         minimum-idle: 1
@@ -21,14 +21,15 @@ spring:
         connection-test-query: SELECT 1
         #jpa config
     jpa:
-        hibernate:
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+        hibernate:            
             #可选参数 
             #create 启动时删数据库中的表，然后创建，退出时不删除数据表 
             #create-drop 启动时删数据库中的表，然后创建，退出时删除数据表 如果表不存在报错 
             #update 如果启动时表格式不一致则更新表，原有数据保留 
             #validate 项目启动表结构进行校验 如果不一致则报错
             #none 则不进行任何操作
-            ddl-auto: none        
+            ddl-auto: update        
         show-sql: true
     #让控制器输出的json格式更美观
     #jackson:
@@ -42,8 +43,8 @@ spring:
         date-format: yyyy-MM-dd HH:mm:ss
     servlet:
         multipart:
-            max-file-size: 10Mb
-            max-request-size: 100Mb
+            max-file-size: 10MB
+            max-request-size: 100MB
 com:
     szh:
         kefupeichang:
